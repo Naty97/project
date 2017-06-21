@@ -20,21 +20,21 @@ public class menuPrincipal {
     public static void main(String[] args) {
         /*Utils.escribirArchivo("administrador.txt", "1234");
         Utils.escribirArchivo("proyects.txt", "1234");
-        */
-    
+         */
+
         String usuario = Utils.leerArchivo("administrador.txt");
         menuPrincipal menu = new menuPrincipal();
         txtAdministrator administrador = menu.cargarAdministrador();
         menu.cargarAdministrador();
-        String gerente= Utils.leerArchivo("administrador.txt");
+        String gerente = Utils.leerArchivo("administrador.txt");
         System.out.println(gerente);
         Scanner entrada = new Scanner(System.in);
         int opcion;
         do {
-        System.out.println("1.Ingresar.");
-        System.out.println("2.Cambiar Contraseña.");
-        System.out.println("3.Salir.");
-        System.out.println("Ingrese opción que desea:");
+            System.out.println("1.Ingresar.");
+            System.out.println("2.Cambiar Contraseña.");
+            System.out.println("3.Salir.");
+            System.out.println("Ingrese opción que desea:");
             opcion = entrada.nextInt();
             switch (opcion) {
                 case 1:
@@ -42,26 +42,33 @@ public class menuPrincipal {
                     String user = entrada.next();
                     System.out.print("Digite contraseña:");
                     String contraseña = entrada.next();
-                    System.out.print(user);
-                    System.out.print(administrador.usuario);
-                    System.out.print(user.equals(administrador.usuario));
-                    if (user.equals(administrador.usuario) && contraseña.equals(administrador.password)){
-                        System.out.print("Inicio de sesión exitoso!!");
+                    if (user.equals(administrador.usuario) && contraseña.equals(administrador.password)) {
+                        System.out.println("Inicio de sesión exitoso!!");
+                        System.out.print("");
                     }
                     break;
+                case 2:
+                    System.out.print("Digite usuario:");
+                    user = entrada.next();
+                    if (user.equals(administrador.usuario)) {
+                        System.out.print("Digite nueva contraseña");
+                        contraseña = entrada.next();
+                        administrador.password = contraseña;
+                        Utils.escribirArchivo("administrador.txt", String.format("%s,%s",administrador.usuario,administrador.password));
+                    }
+                    break;
+
             }
-        }
-        while (opcion != 2);
+        } while (opcion != 3);
     }
-    public txtAdministrator cargarAdministrador(){
-    String usuario = Utils.leerArchivo("administrador.txt");
-    String[] parts = usuario.split(",");
-    return new txtAdministrator(parts[0], parts[1]);
+
+    public txtAdministrator cargarAdministrador() {
+        String usuario = Utils.leerArchivo("administrador.txt");
+        String[] parts = usuario.split(",");
+        return new txtAdministrator(parts[0], parts[1]);
     }
-    
-    
-    
-/*        Scanner sc = new Scanner(System.in);
+
+    /*        Scanner sc = new Scanner(System.in);
           ArrayList<Integer> administra = new ArrayList<>();
         int admin;
                 try {
